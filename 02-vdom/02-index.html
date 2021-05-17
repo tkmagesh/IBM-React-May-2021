@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDOM Demo</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script>
+        var counter = 0;
+
+        function onBtnRenderClick(){
+            ++counter;
+            //update using the browser DOM
+            //document.getElementById('spanCounter').innerText = counter;
+
+            //update using the React vDOM
+            var appEle = React.createElement('div', null, 
+                React.createElement('h1', null, 'React.js!'),
+                React.createElement('hr'),
+                React.createElement('div', null, 
+                    React.createElement('span', null, 'Counter : '),
+                    React.createElement('span', null, counter)
+                ),
+                React.createElement('section', null, 
+                    React.createElement('h3', null, 'Introduction'),
+                    React.createElement('p', null, 'Cillum proident laboris nisi tempor incididunt magna dolor. Duis aliqua Lorem nisi irure id non eu excepteur elit enim eu voluptate. Non est ullamco non occaecat incididunt id magna consectetur anim minim mollit. Velit mollit occaecat tempor ullamco pariatur magna dolor reprehenderit occaecat. Consequat non ullamco excepteur minim in adipisicing nisi nostrud labore consectetur.'),
+                    React.createElement('p', null, 'Incididunt irure reprehenderit sit aute irure voluptate aliquip minim. Minim do esse amet cillum exercitation. Et nulla fugiat incididunt dolore.'),
+                    React.createElement('p', null, 'Irure sunt officia velit tempor exercitation deserunt. Occaecat pariatur cupidatat veniam minim ut exercitation est aliqua culpa exercitation deserunt aliqua nisi. Irure nulla amet magna laboris sint ut officia sit consequat nulla.'),
+                ),
+                React.createElement('section', null, 
+                    React.createElement('h3', null, 'Advantages'),
+                    React.createElement('ol', null,
+                        React.createElement('li', null, 'Declarative'),
+                        React.createElement('li', null, 'Efficient')
+                    )
+                )
+            );
+            ReactDOM.render(appEle, document.getElementById('root'))
+        }
+        function onDocumentLoad(){
+            var btnRender = document.getElementById('btnRender');
+            btnRender.addEventListener('click', onBtnRenderClick);
+        }
+        window.addEventListener('load', onDocumentLoad);
+
+    </script>
+</head>
+<body>
+    <input type="button" value="Render" id="btnRender">
+    <!-- <div>
+        <span>Counter :</span>
+        <span id="spanCounter"></span>
+    </div> -->
+    <div id="root"></div>
+</body>
+</html>
