@@ -1,0 +1,38 @@
+Schedule
+    Commence : 9:30
+    Tea Break : 11:00 Hrs (20 mins)
+    Lunch Break : 13:00 Hrs (1 Hr)
+    Tea Break : 15:30 Hrs (20 mins)
+    Wind up : 17:30 Hrs
+
+Github:
+    http://Github.com/tkmagesh/ibm-react-may-2021
+
+Agenda:
+    What are RIA applications?
+    Challenges in building RIA applications?
+    How React solves it?
+    ES6 & Above
+    React Deep Dive
+    State Management
+    Async Operations
+        callbacks
+        promises
+        async await
+        observables
+    Server communication
+    Solving Async problems in redux
+    Router
+    Unit Testing
+    E2E Testing (cypress)
+    Build & Deployment
+
+React
+    - Framework
+    - For building RIA (Rich Internet Applications)
+    
+
+React
+    react.js
+    react-dom.js
+
