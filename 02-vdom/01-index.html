@@ -8,8 +8,15 @@
     <script src="react.development.js"></script>
     <script src="react-dom.development.js"></script>
     <script>
+        var counter = 0;
+
         function onBtnRenderClick(){
-            var h1 = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js!')
+            ++counter;
+            //update using the browser DOM
+            document.getElementById('spanCounter').innerText = counter;
+
+            //update using the React vDOM
+            var h1 = React.createElement('h1', { id: 'heading-1' }, 'Welcome to React.js! - ' + counter)
             ReactDOM.render(h1, document.getElementById('root'))
         }
         function onDocumentLoad(){
@@ -22,6 +29,10 @@
 </head>
 <body>
     <input type="button" value="Render" id="btnRender">
+    <div>
+        <span>Counter :</span>
+        <span id="spanCounter"></span>
+    </div>
     <div id="root"></div>
 </body>
 </html>
