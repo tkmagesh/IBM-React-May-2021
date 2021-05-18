@@ -69,3 +69,14 @@ JSX
 Create a Calculator component which will accept 2 operands from the user
 Display 4 buttons for the operators (Add, Subtract, Multiply, Divide)
 When any of the buttons are clicked, perform the respective operation and show the result to the user
+
+
+UI State
+    - Data that supports the presentation logic of the component
+    - It is highly UNLIKELY that this data is needed in other parts of the application (outside this component)
+    - Feel free to maintain this data in the component state
+
+App State
+    - Data that supports the domain of the application
+    - It is highly LIKELY that this data is needed in other parts of the application
+    - DONOT maintain this data in the component state
