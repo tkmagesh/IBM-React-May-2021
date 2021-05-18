@@ -22,12 +22,14 @@
                     productNames : productNames,
                     newProductName : ''
                 });
+                this.props.onStateChange(productNames);
             }
 
             onRemoveClick = (idx) => {
                 const { productNames } = this.state;
                 productNames.splice(idx, 1);
                 this.setState({ productNames : productNames })
+                this.props.onStateChange(productNames);
             }
             render(){
                 const { newProductName, productNames } = this.state;
@@ -42,9 +44,6 @@
                     <div>
                         <h1>Products</h1>
                         <hr/>
-                        <div>
-                            <span>Count : {productNames.length}</span>
-                        </div>
                         <label>Product Name : </label>
                         <input type="text" value={newProductName} onChange={ evt => this.setState({newProductName : evt.target.value})} />
                         <input type="button" value="Add New" onClick={this.onAddNewClick} />
@@ -56,7 +55,39 @@
             }
         }
 
-        ReactDOM.render(<Products/>, document.getElementById('root'));
+        class ProductStats extends React.Component{
+            render(){
+                return(
+                    <div>
+                        <span>Count : {this.props.data.length}</span>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component{
+            state = {
+                products : []
+            }
+            onListChanged = (products) => {
+                this.setState({
+                    products : products
+                })
+            }
+            render(){
+                const { products } = this.state;
+                return (
+                    <div>
+                        <ProductStats data={products}/>
+                        <Products onStateChange={this.onListChanged} />
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App/>
+        , document.getElementById('root'));
     </script>
 
 </head>
