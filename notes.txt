@@ -64,3 +64,8 @@ JSX
     Every open tag must have a corresponding close tag
     use "htmlFor" in place of "for"
     use "className' in place of "class"
+
+
+Create a Calculator component which will accept 2 operands from the user
+Display 4 buttons for the operators (Add, Subtract, Multiply, Divide)
+When any of the buttons are clicked, perform the respective operation and show the result to the user
