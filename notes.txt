@@ -51,3 +51,16 @@ ES6 (ES2015 / ESNext / ECMAScript6)
 11. classes
 
 http://es6-features.org
+
+
+Difference between JSX & HTML
+
+HTML
+    Open tags with no matching close tags are allowed
+    "for" attribute is allowed
+    "class" attribute is allowed
+
+JSX
+    Every open tag must have a corresponding close tag
+    use "htmlFor" in place of "for"
+    use "className' in place of "class"
