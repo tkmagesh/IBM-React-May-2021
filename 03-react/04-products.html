@@ -24,9 +24,10 @@
                 });
             }
 
-            onRemoveClick = (productName) => {
-                const updatedProductNames = this.state.productNames.filter(pn => pn !== productName);
-                this.setState({ productNames : updatedProductNames })
+            onRemoveClick = (idx) => {
+                const { productNames } = this.state;
+                productNames.splice(idx, 1);
+                this.setState({ productNames : productNames })
             }
             render(){
                 const { newProductName, productNames } = this.state;
@@ -34,7 +35,7 @@
                     
                     <li key={idx}>
                         <span>{productName}</span>
-                        <input type="button" value=" X " onClick={() => this.onRemoveClick(productName) } />
+                        <input type="button" value=" X " onClick={() => this.onRemoveClick(idx) } />
                     </li>)
                 )
                 return(
