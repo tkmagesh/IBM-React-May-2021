@@ -6,24 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>State Manager</title>
     <script src="state-manager.js"></script>
-    <script>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
         //create the reducer
+        function spinnerReducer(currentState = 0, action){
+            if (action.type === 'INCREMENT') return currentState + 1;
+            if (action.type === 'DECREMENT') return currentState - 1;
+            return currentState;
+        }
 
         //create the store
+        const store = StateManager.createStore(spinnerReducer);
 
         //create the component
             //dispatch an action whenever the user interacts with the component
             //display the currentState from the store
-
+        class Spinner extends React.Component{
+            onDecrementClick = () => {
+                this.props.store.dispatch({
+                    type : 'DECREMENT'
+                });
+            }
+            onIncrementClick = () => {
+                this.props.store.dispatch({
+                    type : 'INCREMENT'
+                });
+            }
+            render(){
+                const { store } = this.props;
+                const spinnerValue = store.getState();
+                return(
+                    <div>
+                        <h1>Spinner</h1>
+                        <hr />
+                        <input type="button" value="Decrement" onClick={this.onDecrementClick} />
+                        <span> [ {spinnerValue} ] </span>
+                        <input type="button" value="Increment" onClick={this.onIncrementClick}/>
+                    </div>
+                )
+            }
+        }
         //subscribe to the store to re-render the component whenever the state is changing in the store
+
+        function renderApp(){
+            ReactDOM.render(
+                <Spinner store={store}/>, 
+                document.getElementById('root')
+            )
+        }
+        renderApp();
+        store.subscribe(renderApp);
     </script>
 </head>
 <body>
     <div id="root">
-        <h1>State Manager</h1>
-        <hr>
-        <input type="button" value="Decrement">
-        <span> [ 0 ] </span>
-        <input type="button" value="Increment"></div>
+        
+    </div>
 </body>
 </html>
