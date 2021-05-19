@@ -90,22 +90,14 @@
             }
         }
 
-        class App extends React.Component{
-            render(){
-                const  products = this.props.model.getAll();
-                return (
-                    <div>
-                        <ProductStats data={products}/>
-                        <Products model={this.props.model} />
-                    </div>
-                )
-            }
-        }
-
         const model = new ProductsModel();
         function renderApp(){
+            const products = model.getAll();
             ReactDOM.render(
-                <App model={model}/>
+                <div>
+                    <ProductStats data={products} />
+                    <Products model={model} />
+                </div>
             , document.getElementById('root'));
         }
         renderApp();
