@@ -104,9 +104,32 @@
                     .filter(bug => bug.isClosed)
                     .forEach(this.remove);
             }
+
+            toggle(bug){
+                bug.toggle();
+                this.emitChanges();
+            }
         }
 
 
+        class BugItem extends React.Component{
+            render(){
+                const { bug } = this.props;
+                return(
+                    <li>
+                        <span
+                            className={"bugname " + (bug.isClosed ? 'closed' : '')}
+                            onClick={_ => bug.toggle()}
+                        >
+                            {bug.name}
+                        </span>
+                        <div className="datetime">{bug.createdAt.toString()}</div>
+                        <input type="button" value="Remove"
+                            onClick={_ => collection.remove(bug)} />
+                    </li>
+                )
+            }
+        }
         class BugTracker extends React.Component{
             state = {
                 newBugName : ''
@@ -116,17 +139,7 @@
                 const  { collection } = this.props,
                     bugs = collection.getAll(),
                     bugItems = bugs.map(bug => (
-                        <li key={bug.id}>
-                            <span 
-                                className={ "bugname " + (bug.isClosed ? 'closed' : '')}
-                                onClick={ _ => bug.toggle() }
-                            >
-                                {bug.name}
-                            </span>
-                            <div className="datetime">{bug.createdAt.toString()}</div>
-                            <input type="button" value="Remove" 
-                                onClick={_ => collection.remove(bug)} />
-                        </li>
+                        <BugItem key={bug.id} bug={bug} collection={collection} />
                     )),
                     closedCount = bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0);
                 return(
