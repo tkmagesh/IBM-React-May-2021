@@ -75,6 +75,10 @@
                 this.id = id;
                 this.name = bugName
             }
+
+            toggle(){
+                this.isClosed = !this.isClosed;
+            }
         }
 
         class BugsCollection extends EventEmitter {
@@ -114,7 +118,10 @@
                     bugItems = bugs.map(bug => (
                         <li key={bug.id}>
                             <span 
-                                className={ "bugname " + (bug.isClosed ? 'closed' : '')}>{bug.name}
+                                className={ "bugname " + (bug.isClosed ? 'closed' : '')}
+                                onClick={ _ => bug.toggle() }
+                            >
+                                {bug.name}
                             </span>
                             <div className="datetime">{bug.createdAt.toString()}</div>
                             <input type="button" value="Remove" 
