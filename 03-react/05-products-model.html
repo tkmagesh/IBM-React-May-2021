@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        class EventEmitter{
+            _subscriptions = [];
+
+            subscribe(listenerFn){
+                this._subscriptions.push(listenerFn)
+            }
+
+            emitChanges(){
+                this._subscriptions.forEach(listenerFn => listenerFn())
+            }
+        }
+
+        class ProductsModel extends EventEmitter{
+            _productsList = [];
+
+            addNew(productName){
+                this._productsList.push(productName)
+                this.emitChanges();
+            }
+
+            getAll(){
+                return [...this._productsList]
+            }
+
+            remove(index){
+                this._productsList.splice(index, 1);
+                this.emitChanges()
+            }
+        }
+
+        class Products extends React.Component{
+            state = {
+                newProductName : ''
+            };
+
+            onAddNewClick = () => {
+                const { newProductName } = this.state;
+                this.props.model.addNew(newProductName);
+                this.setState({
+                    newProductName : ''
+                });
+            }
+
+            onRemoveClick = (idx) => {
+                this.props.model.remove(idx);
+            }
+            render(){
+                const { newProductName } = this.state;
+                const productNames = this.props.model.getAll();
+                const productItems = productNames.map((productName, idx) => (
+                    
+                    <li key={idx}>
+                        <span>{productName}</span>
+                        <input type="button" value=" X " onClick={() => this.onRemoveClick(idx) } />
+                    </li>)
+                )
+                return(
+                    <div>
+                        <h1>Products</h1>
+                        <hr/>
+                        <label>Product Name : </label>
+                        <input type="text" value={newProductName} onChange={ evt => this.setState({newProductName : evt.target.value})} />
+                        <input type="button" value="Add New" onClick={this.onAddNewClick} />
+                        <ol>
+                            { productItems }
+                        </ol>
+                    </div>
+                )
+            }
+        }
+
+        class ProductStats extends React.Component{
+            render(){
+                return(
+                    <div>
+                        <span>Count : {this.props.data.length}</span>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component{
+            render(){
+                const  products = this.props.model.getAll();
+                return (
+                    <div>
+                        <ProductStats data={products}/>
+                        <Products model={this.props.model} />
+                    </div>
+                )
+            }
+        }
+
+        const model = new ProductsModel();
+        function renderApp(){
+            ReactDOM.render(
+                <App model={model}/>
+            , document.getElementById('root'));
+        }
+        renderApp();
+        model.subscribe(renderApp);
+
+    </script>
+
+</head>
+<body>
+    <div id="root">
+        
+
+    </div>
+</body>
+</html>
