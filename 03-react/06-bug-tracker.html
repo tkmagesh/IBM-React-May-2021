@@ -49,36 +49,126 @@
             5. Remove closed bugs
             6. Display stats (# of closed bugs / total # of bugs )
      -->
+     <script src="react.development.js"></script>
+     <script src="react-dom.development.js"></script>
+     <script src="babel.min.js"></script>
+     <script type="text/babel">
+        class EventEmitter {
+            _subscriptions = [];
+
+            subscribe(listenerFn) {
+                this._subscriptions.push(listenerFn)
+            }
+
+            emitChanges() {
+                this._subscriptions.forEach(listenerFn => listenerFn())
+            }
+        }
+
+        class Bug {
+            id = 0;
+            name = '';
+            isClosed = false;
+            createdAt = new Date();
+
+            constructor(id, bugName){
+                this.id = id;
+                this.name = bugName
+            }
+        }
+
+        class BugsCollection extends EventEmitter {
+            _list = [];
+            _currentBugId = 0;
+            addNew(bugName){
+                const newBug = new Bug(++this._currentBugId, bugName);
+                this._list.push(newBug);
+                this.emitChanges();
+            }
+
+            remove(bugToRemove){
+                this._list = this._list.filter(bug => bug.id !== bugToRemove.id)
+                this.emitChanges();
+            }
+
+            getAll(){
+                return [...this._list];
+            }
+
+            removeClosed(){
+                this._list
+                    .filter(bug => bug.isClosed)
+                    .forEach(this.remove);
+            }
+        }
+
+
+        class BugTracker extends React.Component{
+            state = {
+                newBugName : ''
+            };
+
+            render(){
+                const  { collection } = this.props,
+                    bugs = collection.getAll(),
+                    bugItems = bugs.map(bug => (
+                        <li key={bug.id}>
+                            <span 
+                                className={ "bugname " + (bug.isClosed ? 'closed' : '')}>{bug.name}
+                            </span>
+                            <div className="datetime">{bug.createdAt.toString()}</div>
+                            <input type="button" value="Remove" 
+                                onClick={_ => collection.remove(bug)} />
+                        </li>
+                    )),
+                    closedCount = bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0);
+                return(
+                    <div>
+                        <h1>Bug Tracker</h1>
+                        <hr />
+                        <section className="stats">
+                            <span className="closed">{closedCount}</span>
+                            <span> / </span>
+                            <span>{bugs.length}</span>
+                        </section>
+                        <section className="edit">
+                            <label htmlFor="">Bug Name :</label>
+                            <input type="text" onChange={evt => this.setState({ newBugName : evt.target.value})} />
+                            <input 
+                                type="button" 
+                                value="Add New" 
+                                onClick={ _ => collection.addNew(this.state.newBugName)}
+                            />
+                        </section>
+                        <section className="list">
+                            <ol>
+                                {bugItems}
+                            </ol>
+                            <input 
+                                type="button" 
+                                value="Remove Closed" 
+                                onClick={_ => collection.removeClosed()} 
+                            />
+                        </section>
+                    </div>
+                )
+            }
+        }
+        const bugsCollection = new BugsCollection();
+
+        function renderApp(){
+            ReactDOM.render(
+                <BugTracker collection={bugsCollection}/>,
+                document.getElementById('root')
+            )
+        }
+        renderApp();
+        bugsCollection.subscribe(renderApp);
+    </script>
 </head>
 <body>
     <div id="root">
-        <h1>Bug Tracker</h1>
-        <hr>
-        <section class="stats">
-            <span class="closed">1</span>
-            <span> / </span>
-            <span>2</span>
-        </section>
-        <section class="edit">
-            <label for="">Bug Name :</label>
-            <input type="text" name="" id="">
-            <input type="button" value="Add New">
-        </section>
-        <section class="list">
-            <ol>
-                <li>
-                    <span class="bugname">[This is bug - 1]</span>
-                    <div class="datetime">[Created At]</div>
-                    <input type="button" value="Remove">
-                </li>
-                <li>
-                    <span class="bugname closed">[This is bug - 2]</span>
-                    <div class="datetime">[Created At]</div>
-                    <input type="button" value="Remove">
-                </li>
-            </ol>
-            <input type="button" value="Remove Closed">
-        </section>
+       
     </div>
 </body>
 </html>
