@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script src="state-manager.js"></script>
+    <script type="text/babel">
+        function projectsReducer(currentState = [], action) {
+            if (action.type === 'ADD_PROJECT'){
+                return [...currentState, action.payload];
+            }
+            if (action.type === 'REMOVE_PROJECT'){
+                return currentState.filter(project => project !== action.payload);
+            }
+            return currentState;
+        }
+
+        const projectActionCreators = {
+            addNew(projectName){
+                const action = { type : 'ADD_PROJECT', payload : projectName};
+                return action
+            },
+            remove(projectName){
+                const action = { type : 'REMOVE_PROJECT', payload : projectName};
+                return action;
+            }
+        }
+
+        class Projects extends React.Component {
+            state = {
+                newProjectName : ''
+            };
+
+            render() {
+                const { newProjectName } = this.state;
+                const { projects, addNew, remove } = this.props;
+                const projectItems = projects.map((projectName, idx) => (
+
+                    <li key={idx}>
+                        <span>{projectName}</span>
+                        <input type="button" value=" X " onClick={() => remove(projectName)} />
+                    </li>)
+                )
+                return (
+                    <div>
+                        <h1>Projects</h1>
+                        <hr />
+                        <label>Product Name : </label>
+                        <input type="text" value={newProjectName} onChange={evt => this.setState({ newProjectName: evt.target.value })} />
+                        <input type="button" value="Add New" onClick={_ => addNew(newProjectName)} />
+                        <ol>
+                            {projectItems}
+                        </ol>
+                    </div>
+                )
+            }
+        }
+        class ProjectStats extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <span>Count : {this.props.data.length}</span>
+                    </div>
+                )
+            }
+        }
+
+        const store = StateManager.createStore(projectsReducer);
+        const projectActionDispatchers = StateManager.bindActionCreators(projectActionCreators, store.dispatch);
+
+        function renderApp(){
+            const projects = store.getState();
+            ReactDOM.render(
+                <div>
+                    <ProjectStats data={projects} />
+                    <Projects projects={projects} {...projectActionDispatchers}/>
+                </div>,
+                document.getElementById('root')
+            );
+        }
+        renderApp();
+        store.subscribe(renderApp);
+    </script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+</html>
