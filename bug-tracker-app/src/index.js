@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { bindActionCreators } from 'redux';
+
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import BugTracker from './bugs';
+import bugActionCreators from './bugs/actions';
+import appStore from './store';
 
+const bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function renderApp(){
+    const bugs = appStore.getState();
+    ReactDOM.render(
+        <BugTracker bugs={bugs} {...bugActionDispatchers} />,
+        document.getElementById('root')
+    );
+}
+
+renderApp();
+appStore.subscribe(renderApp);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

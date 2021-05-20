@@ -116,3 +116,23 @@ ES6 modules
     Any thing that is defined in a js/jsx file is considered private
     The public entities have to be explicitly exported
     Any public entity from another file has to be explicitly imported 
+
+
+app setup
+    /bugs
+        /reducers
+        /actions
+        /views
+        index.js
+    /projects
+        /reducers
+        /actions
+        /views
+        index.js
+    /store
+        index.js
+    /reducers
+        index.js
+
+To install redux
+    yarn add redux (in the terminal)
