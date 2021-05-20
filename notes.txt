@@ -102,3 +102,17 @@ React Hooks
         useRef
         useMemo
         useCallback
+
+package manager
+    yarn (alternative to npm)
+    [sudo] npm install yarn -g
+
+create-react-app
+
+From the folder where we want to create the application
+    yarn create react-app <app-name>
+
+ES6 modules
+    Any thing that is defined in a js/jsx file is considered private
+    The public entities have to be explicitly exported
+    Any public entity from another file has to be explicitly imported 
