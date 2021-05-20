@@ -143,3 +143,7 @@ react-redux
         - Provider
     To install
         yarn add react-redux
+
+redux middlewares
+    encapsulate any logic that need to be applied across all the actions
+    
