@@ -100,47 +100,63 @@
             }
         };
 
-        const BugTracker = (props) => {
-            const { bugs, addNew, toggle, remove, removeClosed } = props;
-            const [newBugName, setNewBugName] = React.useState('');
-            const closedCount = bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0);
-            const bugItems = bugs.map(bug => (
-                <BugItem key={bug.id} {...{bug, toggle, remove}} />
-            ));
+        //REFACTOR the BugTracker component into 3 small components (BugStats, BugEdit, BugList)
+
+        const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed }) => {
             return(
                 <div>
                     <h1>Bug Tracker</h1>
                     <hr />
-                    <section className="stats">
-                        <span className="closed">{closedCount}</span>
-                        <span> / </span>
-                        <span>{bugs.length}</span>
-                    </section>
-                    <section className="edit">
-                        <label htmlFor="">Bug Name :</label>
-                        <input type="text" onChange={evt => setNewBugName(evt.target.value)} />
-                        <input
-                            type="button"
-                            value="Add New"
-                            onClick={_ => addNew(newBugName)}
-                        />
-                    </section>
-                    <section className="list">
-                        <ol>
-                            {bugItems}
-                        </ol>
-                        <input
-                            type="button"
-                            value="Remove Closed"
-                            onClick={ () => removeClosed(bugs) }
-                        />
-                    </section>
+                    <BugStats bugs={bugs} />
+                    <BugEdit addNew={addNew} />
+                    <BugList {...{bugs, toggle, remove, removeClosed}} />
                 </div>
             )
         }
 
-        const BugItem = (props) => {
-            const { bug, toggle, remove } = props;
+        const BugList = ({bugs, toggle, remove, removeClosed}) => {
+            const bugItems = bugs.map(bug => (
+                <BugItem key={bug.id} {...{ bug, toggle, remove }} />
+            ));
+            return (
+                <section className="list">
+                    <ol>
+                        {bugItems}
+                    </ol>
+                    <input
+                        type="button"
+                        value="Remove Closed"
+                        onClick={() => removeClosed(bugs)}
+                    />
+                </section>
+            )
+        }
+        const BugEdit = ({addNew}) => {
+            const [newBugName, setNewBugName] = React.useState('');
+            return (
+                <section className="edit">
+                    <label htmlFor="">Bug Name :</label>
+                    <input type="text" onChange={evt => setNewBugName(evt.target.value)} />
+                    <input
+                        type="button"
+                        value="Add New"
+                        onClick={_ => addNew(newBugName)}
+                    />
+                </section>
+            )
+        }
+        const BugStats = ({bugs}) => {
+            const closedCount = bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0);
+            return (
+                <section className="stats">
+                    <span className="closed">{closedCount}</span>
+                    <span> / </span>
+                    <span>{bugs.length}</span>
+                </section>
+            )
+        }
+
+        const BugItem = ({ bug, toggle, remove }) => {
             return (
                 <li>
                     <span
