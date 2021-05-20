@@ -136,3 +136,10 @@ app setup
 
 To install redux
     yarn add redux (in the terminal)
+
+react-redux
+    adapter between react and redux
+        - connect
+        - Provider
+    To install
+        yarn add react-redux

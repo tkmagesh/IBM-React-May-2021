@@ -1,7 +1,11 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import BugStats from './views/bugStats';
 import BugEdit from './views/bugEdit';
 import BugList from './views/bugList';
 import './index.css';
+import bugActionCreators from './actions';
 
 const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed }) => {
     return(
@@ -14,4 +18,16 @@ const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed }) => {
         </div>
     )
 }
-export default BugTracker;
+
+function mapStateToProps(storeState){
+    const data = storeState.bugsState;
+    return { bugs : data };
+}
+
+function mapDispatchToProps(dispatch){
+    const bugActionDispatchers = bindActionCreators(bugActionCreators, dispatch);
+    return bugActionDispatchers;
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BugTracker);
