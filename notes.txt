@@ -80,3 +80,25 @@ App State
     - Data that supports the domain of the application
     - It is highly LIKELY that this data is needed in other parts of the application
     - DONOT maintain this data in the component state
+
+Managing Products
+    
+    Initial state = []
+
+    Actions
+        ADD_PRODUCT
+        REMOVE_PRODUCT
+
+React Hooks
+    functions
+        state,
+        lifecycle
+    must start with 'use'
+
+    builtin hooks
+        useState
+        useEffects
+        useReducer
+        useRef
+        useMemo
+        useCallback
