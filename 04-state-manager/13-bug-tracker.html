@@ -65,6 +65,9 @@
                 const bugToRemove = action.payload;
                 return currentState.filter(bug => bug.id !== bugToRemove.id);
             }
+            if (action.type === 'INIT_BUGS'){
+                return action.payload;
+            }
             return currentState;
         }
         
@@ -89,13 +92,16 @@
                 const action = { type : 'REMOVE_BUG', payload : bugToRemove };
                 return action;
             },
-            removeClosed(){
-                
+            /* TO BE FIXED - should be able to access the current state in the action creator without being passed from the component (UI) */
+            removeClosed(bugs){
+                const bugsToRetain = bugs.filter(bug => !bug.isClosed)
+                const action = { type : 'INIT_BUGS', payload : bugsToRetain };
+                return action;
             }
         };
 
         const BugTracker = (props) => {
-            const { bugs, addNew, toggle, remove } = props;
+            const { bugs, addNew, toggle, remove, removeClosed } = props;
             const [newBugName, setNewBugName] = React.useState('');
             const closedCount = bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0);
             const bugItems = bugs.map(bug => (
@@ -126,6 +132,7 @@
                         <input
                             type="button"
                             value="Remove Closed"
+                            onClick={ () => removeClosed(bugs) }
                         />
                     </section>
                 </div>
