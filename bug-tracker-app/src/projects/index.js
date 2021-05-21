@@ -12,13 +12,12 @@ const ProjectStats = (props) => {
     )
 };
 
-const Projects = (props) => {
+const Projects = ({ projects, addNew, remove, setSelected, selectedProject }) => {
     //const { newProjectName } = this.state;
     const [newProjectName, setNewProjectName] = useState('');
-    const { projects, addNew, remove } = props;
     const projectItems = projects.map((project) => (
-        <li key={project.id} className="selected">
-            <span >{project.name}</span>
+        <li key={project.id} className={(selectedProject && project.id === selectedProject.id) ? 'selected' : ''}>
+            <span onClick={() => setSelected(project)} >{project.name}</span>
             <input type="button" value=" X " onClick={() => remove(project)} />
         </li>)
     )
@@ -46,7 +45,7 @@ const Projects = (props) => {
 } */
 
 function mapStateToProps(storeState){
-    return { projects : storeState.projectsState };
+    return { projects : storeState.projectsState, selectedProject : storeState.projectsFilterState.selectedProject };
 }
 
 function mapDispatchToProps(dispatch){

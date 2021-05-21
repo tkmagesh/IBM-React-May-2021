@@ -149,7 +149,7 @@ redux middlewares
     
 
 1. Populate the projects drop down in the bug tracker with the projects that are added
-2. When a new bug is created, associated the bug with the selected project (project id)
-3. When bugs are displayed, display the projectname and id for the bug
-4. When a project is selected, display only the bugs belonging to that project
+2. When a new bug is created, associate the new bug with the selected project (project id)
+3. When bugs are displayed, display the projectname and id for each bug
+4. When a project is selected (in the projects module), display only the bugs belonging to that project
 5. Req 4 should be applied only when the "Apply projects filter" checkbox is checked

@@ -11,6 +11,10 @@ const projectActionCreators = {
     remove(project){
         const action = { type : 'REMOVE_PROJECT', payload : project};
         return action;
+    },
+    setSelected(project){
+        const action = { type : 'SET_SELECTED_PROJECT', payload : project}
+        return action;
     }
 }
 export default projectActionCreators;
