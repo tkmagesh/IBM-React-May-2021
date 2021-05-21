@@ -26,6 +26,7 @@ const Projects = ({ projects, addNew, remove, setSelected, selectedProject, load
             <h1>Projects</h1>
             <hr />
             <input type="button" value="LOAD PROJECTS" onClick={load} />
+            <br/>
             <label>Product Name : </label>
             <input type="text" value={newProjectName} onChange={evt => setNewProjectName(evt.target.value) } />
             <input type="button" value="Add New" onClick={_ => addNew(newProjectName)} />
