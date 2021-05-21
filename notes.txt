@@ -147,3 +147,9 @@ react-redux
 redux middlewares
     encapsulate any logic that need to be applied across all the actions
     
+
+1. Populate the projects drop down in the bug tracker with the projects that are added
+2. When a new bug is created, associated the bug with the selected project (project id)
+3. When bugs are displayed, display the projectname and id for the bug
+4. When a project is selected, display only the bugs belonging to that project
+5. Req 4 should be applied only when the "Apply projects filter" checkbox is checked

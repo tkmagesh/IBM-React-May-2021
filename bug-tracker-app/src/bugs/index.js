@@ -11,6 +11,8 @@ const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed }) => {
     return(
         <div>
             <h1>Bug Tracker</h1>
+            <label>Apply Projects Filter : </label>
+            <input type="checkbox" />
             <hr />
             <BugStats bugs={bugs} />
             <BugEdit addNew={addNew} />

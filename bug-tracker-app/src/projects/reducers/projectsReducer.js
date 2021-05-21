@@ -3,7 +3,7 @@ function projectsReducer(currentState = [], action) {
         return [...currentState, action.payload];
     }
     if (action.type === 'REMOVE_PROJECT'){
-        return currentState.filter(project => project !== action.payload);
+        return currentState.filter(project => project.id !== action.payload.id);
     }
     return currentState;
 }

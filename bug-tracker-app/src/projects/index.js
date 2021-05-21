@@ -16,10 +16,10 @@ const Projects = (props) => {
     //const { newProjectName } = this.state;
     const [newProjectName, setNewProjectName] = useState('');
     const { projects, addNew, remove } = props;
-    const projectItems = projects.map((projectName, idx) => (
-        <li key={idx}>
-            <span>{projectName}</span>
-            <input type="button" value=" X " onClick={() => remove(projectName)} />
+    const projectItems = projects.map((project) => (
+        <li key={project.id} className="selected">
+            <span >{project.name}</span>
+            <input type="button" value=" X " onClick={() => remove(project)} />
         </li>)
     )
     return (
