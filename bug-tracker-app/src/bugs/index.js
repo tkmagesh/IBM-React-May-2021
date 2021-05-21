@@ -8,6 +8,7 @@ import './index.css';
 import bugActionCreators from './actions';
 
 const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects }) => {
+    console.table(bugs);
     return(
         <div>
             <h1>Bug Tracker</h1>
@@ -24,7 +25,8 @@ const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects }) =>
 function mapStateToProps(storeState){
     /* const data = storeState.bugsState;
     const projects = storeState.projectsState; */
-    const { bugsState : data, projectsState } = storeState;
+    const { bugsState : bugs, projectsState } = storeState;
+    const data = bugs.map(bug => ({...bug, projectName : projectsState.find(p => p.id === bug.projectId).name}))
     return { bugs : data, projects : projectsState };
 }
 
