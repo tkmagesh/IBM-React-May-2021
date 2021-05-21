@@ -162,3 +162,7 @@ axios
 
 Async Operation
     
+
+axios.post('http://localhost:3030/bugs', newBug)
+axios.put('http://localhost:3030/bugs/1', updatedBug)
+axios.delete('http://localhost:3030/bugs/1')

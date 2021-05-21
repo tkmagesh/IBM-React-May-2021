@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIfe cycle events</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <style>
+        #root > h3 {
+            color : blue
+        }
+    </style>
+    <script type="text/babel">
+        const TimerContainer = () => {
+            const [showTimer, setShowTimer] = React.useState(false);
+            return(
+                <>
+                    <h2>Timer App</h2>
+                    <label>Show Timer </label>
+                    <input type="checkbox" checked={showTimer} onChange={ evt => setShowTimer(evt.target.checked)} />
+                    { showTimer ? <Timer/> : null}
+                </>
+            )
+        }
+         const Timer = () => {
+             const [currentTime, setCurrentTime ] = React.useState(new Date())
+             const [timerId, setTimerId] = React.useState(0);
+             React.useEffect(() => {
+                 //executed when the component is initialized / updated
+                 console.log('Timer initialized/updated')
+                 let timerId = setInterval(() => {
+                     setCurrentTime(new Date())
+                 }, 1000);
+                 return () => {
+                     //executed when the component is unloaded
+                     console.log('Timer unloaded');
+                     if (timerId) {
+                         clearInterval(timerId)
+                     }
+                 }
+             }, [] /* list of variables which when changed we want the outer function to execute */)
+             
+            return (
+                <>
+                    <h3>Timer</h3>
+                    <hr/>
+                    <div>
+                        <span>Time : </span>
+                        <span>{currentTime.toString()}</span>
+                    </div>
+                </>
+            );
+        }
+
+        ReactDOM.render(<TimerContainer/>, document.getElementById('root'))
+    </script>
+</head>
+<body>
+    <div id="root">
+        
+    </div>
+</body>
+</html>
