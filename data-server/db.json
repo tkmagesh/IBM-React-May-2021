@@ -2,26 +2,11 @@
   "bugs": [
     {
       "id": 1,
-      "name": "Data integrity checks failed",
+      "name": "Bug - 1",
       "isClosed": false,
-      "createdAt": "2019-09-27T06:34:45.852Z",
-      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquam id pariatur ipsa expedita nesciunt doloribus facilis architecto quisquam totam veniam odio, minima, labore deleniti, neque nam quia amet eveniet.",
-      "projectId": 1
-    },
-    {
-      "id": 3,
-      "name": "Salary not credited",
-      "createdAt": "2020-11-26T11:30:23.139Z",
-      "isClosed": true,
+      "createdAt": "2021-05-21T11:35:14.517Z",
       "projectId": 1,
       "projectName": "Bug Tracker"
-    },
-    {
-      "id": 4,
-      "name": "User actions not recognized",
-      "isClosed": false,
-      "createdAt": "2021-05-21T09:37:53.890Z",
-      "projectId": 2
     }
   ],
   "projects": [

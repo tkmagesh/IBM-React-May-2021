@@ -166,3 +166,8 @@ Async Operation
 axios.post('http://localhost:3030/bugs', newBug)
 axios.put('http://localhost:3030/bugs/1', updatedBug)
 axios.delete('http://localhost:3030/bugs/1')
+
+
+Class Component
+    Instances have to be created
+    lifecycle methods have to executed even when they are not utilized
