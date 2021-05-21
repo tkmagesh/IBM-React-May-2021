@@ -22,6 +22,17 @@ function loggerMiddleware(store){
     }
 }
 
-const appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware));
+function asyncMiddleware(store){
+    return function(next){
+        return function(action){
+            if (typeof action === 'function'){
+                return action(store.dispatch)
+            }
+            return next(action);
+        }
+    }
+}
+
+const appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncMiddleware));
 
 export default appStore;

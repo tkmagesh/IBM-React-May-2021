@@ -7,12 +7,14 @@ import BugList from './views/bugList';
 import './index.css';
 import bugActionCreators from './actions';
 
-const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects, applyFilter }) => {
+const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects, applyFilter, load }) => {
     return(
         <div>
             <h1>Bug Tracker</h1>
             <label>Apply Projects Filter : </label>
             <input type="checkbox" onChange={evt => applyFilter(evt.target.checked)} />
+            <br/>
+            <input type="button" value="LOAD BUGS" onClick={load} />
             <hr />
             <BugStats bugs={bugs} />
             <BugEdit addNew={addNew} projects={projects}/>

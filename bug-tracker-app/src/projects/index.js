@@ -12,7 +12,7 @@ const ProjectStats = (props) => {
     )
 };
 
-const Projects = ({ projects, addNew, remove, setSelected, selectedProject }) => {
+const Projects = ({ projects, addNew, remove, setSelected, selectedProject, load }) => {
     //const { newProjectName } = this.state;
     const [newProjectName, setNewProjectName] = useState('');
     const projectItems = projects.map((project) => (
@@ -25,6 +25,7 @@ const Projects = ({ projects, addNew, remove, setSelected, selectedProject }) =>
         <div>
             <h1>Projects</h1>
             <hr />
+            <input type="button" value="LOAD PROJECTS" onClick={load} />
             <label>Product Name : </label>
             <input type="text" value={newProjectName} onChange={evt => setNewProjectName(evt.target.value) } />
             <input type="button" value="Add New" onClick={_ => addNew(newProjectName)} />

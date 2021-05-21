@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 let _currentProjectId = 0;
 const projectActionCreators = {
     addNew(projectName){
@@ -15,6 +17,16 @@ const projectActionCreators = {
     setSelected(project){
         const action = { type : 'SET_SELECTED_PROJECT', payload : project}
         return action;
+    },
+    load(){
+        return function(dispatch){
+            axios.get('http://localhost:3030/projects')
+                .then(response => response.data)
+                .then(projects => {
+                    const action = { type : 'INIT_PROJECTS', payload : projects};
+                    dispatch(action);
+                })
+        }
     }
 }
 export default projectActionCreators;

@@ -2,7 +2,7 @@ let _currentBugId = 0;
 
 function addNew(newBugName, projectId){
     const newBug = {
-        id : ++_currentBugId,
+        id : 0,
         name : newBugName,
         isClosed : false,
         createdAt : new Date(),
