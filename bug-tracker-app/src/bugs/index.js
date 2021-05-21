@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 
 import BugStats from './views/bugStats';
@@ -8,6 +9,9 @@ import './index.css';
 import bugActionCreators from './actions';
 
 const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects, applyFilter, load }) => {
+    useEffect(() => {
+        load()
+    }, [load]);
     return(
         <div>
             <h1>Bug Tracker</h1>
