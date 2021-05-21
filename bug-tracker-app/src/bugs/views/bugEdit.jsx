@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const BugEdit = ({addNew}) => {
+const BugEdit = ({addNew, projects }) => {
     const [newBugName, setNewBugName] = useState('');
     return (
         <section className="edit">
@@ -9,6 +9,7 @@ const BugEdit = ({addNew}) => {
             <label htmlFor="Project : "></label>
             <select >
                 <option value="">---Choose a project----</option>
+                { projects.map(project => (<option key={project.id} value={project.id}>{project.name}</option>))}
             </select>
             <input
                 type="button"
