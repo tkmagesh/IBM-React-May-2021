@@ -184,3 +184,40 @@ Presentation Component / Dumb Component
     Display the given data
     Call the given action when the user interacts
     Can have as many presentation components as needed
+
+
+Observables
+    Observables = inverse of enumerable
+        enumerable (called as generator in JS) = iterable with lazy evaluation
+
+
+20 React.js
+200 Candidate to be interviewed
+
+2000 resumes
+
+Post Graduate
+4 Yrs Exp
+Bangalore
+
+4 volunteers
+
+product = {id, name, units, cost, category}
+products = [] (2000 products, 500 stationary, 50 stationary products whose value < 100)
+first 10 Stationary products whose   value (cost * units) < 100 
+
+products
+    .filter(p => p.category === 'stationary')
+    .map(p => p.value = p.cost * p.units)
+    .filter(p => p.value < 100)
+    .first(10)
+
+
+Browser
+    UI Events (Keyboard, Mouse) (stream)
+    Timers (stream)
+    Ajax (singular)
+    Server Sent Events (stream)
+    Web Sockets (stream)
+
+epic => fn(action$) => action$
