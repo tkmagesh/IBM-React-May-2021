@@ -19,7 +19,7 @@
             };
             return [spinnerValue, increment, decrement]
         }
-        
+
         function Spinner(){
             const [spinnerValue, increment, decrement] = useCounter();
             return (
@@ -33,7 +33,46 @@
             )
         }
 
-        ReactDOM.render(<Spinner/>, document.getElementById('root'))
+        function useTimer(){
+            const [currentTime, setCurrentTime] = React.useState(new Date())
+            const [timerId, setTimerId] = React.useState(0);
+            React.useEffect(() => {
+                //executed when the component is initialized / updated
+                console.log('Timer initialized/updated')
+                let timerId = setInterval(() => {
+                    setCurrentTime(new Date())
+                }, 1000);
+                return () => {
+                    //executed when the component is unloaded
+                    console.log('Timer unloaded');
+                    if (timerId) {
+                        clearInterval(timerId)
+                    }
+                }
+            }, [] /* list of variables which when changed we want the outer function to execute */)
+            return currentTime;
+        }
+
+        const Timer = () => {
+                const currentTime = useTimer()
+                return (
+                    <>
+                        <h3>Timer</h3>
+                        <hr />
+                        <div>
+                            <span>Time : </span>
+                            <span>{currentTime.toString()}</span>
+                        </div>
+                    </>
+                );
+            }
+
+        ReactDOM.render(
+            <div>
+                <Timer/>
+                <Spinner/>
+            </div>
+        , document.getElementById('root'))
     </script>
 </head>
 <body>

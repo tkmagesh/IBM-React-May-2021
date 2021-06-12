@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+
+        function useProducts(){
+            const [ newProductName, setNewProductName ] = React.useState('');
+            const [ productNames, setProductNames ] = React.useState([]);
+            const addNew = () => {
+                setProductNames([...productNames, newProductName])
+            }
+            const remove = (idx) => {
+                const existingProductNames = [...productNames]
+                existingProductNames.splice(idx, 1)
+                setProductNames(existingProductNames)
+            }
+            return [setNewProductName, productNames, addNew, remove ];
+        }
+
+        function Products(){
+            const [setNewProductName, productNames, addNew, remove] = useProducts();           
+            const productItems = productNames.map((productName, idx) => (
+                <li key={idx}>
+                    <span>{productName}</span>
+                    <input type="button" value=" X " onClick={() => remove(idx) } />
+                </li>)
+            );
+            return(
+                <div>
+                    <h1>Products</h1>
+                    <hr/>
+                    <label>Product Name : </label>
+                    <input type="text" onChange={ evt => setNewProductName(evt.target.value)} />
+                    <input type="button" value="Add New" onClick={addNew} />
+                    <ol>
+                        { productItems }
+                    </ol>
+                </div>
+            )
+        }      
+        ReactDOM.render(
+            <Products/>
+        , document.getElementById('root'));
+    </script>
+
+</head>
+<body>
+    <div id="root">
+        
+
+    </div>
+</body>
+</html>
