@@ -171,3 +171,16 @@ axios.delete('http://localhost:3030/bugs/1')
 Class Component
     Instances have to be created
     lifecycle methods have to executed even when they are not utilized
+
+
+Container Component / Smart Component
+    interfaces with redux 
+    passes the data & actions to the presentation components
+    typically connected using the 'connect' api
+    Fewer container components are adviced
+
+Presentation Component / Dumb Component
+    These are used in the container components
+    Display the given data
+    Call the given action when the user interacts
+    Can have as many presentation components as needed

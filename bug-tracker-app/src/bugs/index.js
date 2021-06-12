@@ -17,8 +17,6 @@ const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, projects, appl
             <h1>Bug Tracker</h1>
             <label>Apply Projects Filter : </label>
             <input type="checkbox" onChange={evt => applyFilter(evt.target.checked)} />
-            <br/>
-            <input type="button" value="LOAD BUGS" onClick={load} />
             <hr />
             <BugStats bugs={bugs} />
             <BugEdit addNew={addNew} projects={projects}/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import App from './App';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -10,15 +11,39 @@ import appStore from './store';
 import BugTracker from './bugs';
 import Projects from './projects';
 
-import axios from 'axios';
-window['axios'] = axios;
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 ReactDOM.render(
     <Provider store={appStore}>
-        <div>
-            <Projects/>
-            <BugTracker/>
-        </div>
+        <Router>
+            <h1>My App </h1>
+            <hr/>
+            <div>
+                <span> [ <Link to="/">Home</Link> ] </span>
+                <span> [ <Link to="/projects">Projects</Link> ] </span>
+                <span> [ <Link to="/bugs">Bugs</Link> ] </span>
+            </div>
+            <hr/>
+            <div>
+                <Switch>
+                    <Route path="/projects">
+                        <Projects />
+                    </Route>
+                    <Route path="/bugs">
+                        <BugTracker />
+                    </Route>
+                    <Route path="/">
+                        <App />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );
